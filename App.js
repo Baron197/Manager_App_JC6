@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { View } from 'react-native';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import firebase from 'firebase';
-import { Header } from 'react-native-elements';
+import ReduxThunk from 'redux-thunk';
 import reducers from './src/reducers';
-import LoginForm from './src/components/LoginForm';
+import Main from './src/components/Main';
 
 class App extends Component {
     componentWillMount() {
@@ -21,16 +20,10 @@ class App extends Component {
     }
 
     render() {
-      const store = createStore(reducers);
+      const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
       return (
         <Provider store={store}>
-          <View>
-            <Header
-              placement="left"
-              centerComponent={{ text: 'Please Login', style: { color: '#fff' } }}
-            />
-            <LoginForm />
-          </View>
+          <Main />
         </Provider>
       );
     }
