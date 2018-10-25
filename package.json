@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "eslint-config-rallycoding": "^3.2.0",
-    "firebase": "^4.12.1",
+    "firebase": "^5.5.5",
     "react": "16.6.0-alpha.8af6728",
     "react-native": "0.57.3",
     "react-native-elements": "^0.19.1",

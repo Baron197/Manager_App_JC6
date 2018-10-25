@@ -1,13 +1,21 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { Header } from 'react-native-elements';
+import { connect } from 'react-redux';
 import { Card, CardSection, Button } from './common';
+import { employeeCreate } from '../actions';
 import EmployeeForm from './EmployeeForm';
 
 class EmployeeCreate extends Component {
     static navigationOptions = {
         drawerLabel: 'Add New Employee'
     };
+
+    onButtonPress = () => {
+        const { name, phone, shift } = this.props;
+
+        this.props.employeeCreate(name, phone, shift || 'Sunday');
+    }
 
     render() {
         return (
@@ -30,7 +38,7 @@ class EmployeeCreate extends Component {
                     <EmployeeForm />
                     
                     <CardSection>
-                        <Button>
+                        <Button onPress={this.onButtonPress}>
                             Save
                         </Button>
                     </CardSection>
@@ -40,4 +48,10 @@ class EmployeeCreate extends Component {
     }
 }
 
-export default EmployeeCreate;
+const mapStateToProps = (state) => {
+    const { name, phone, shift } = state.employeeForm;
+
+    return { name, phone, shift };
+};
+
+export default connect(mapStateToProps, { employeeCreate })(EmployeeCreate);
